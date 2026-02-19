@@ -4,6 +4,8 @@ import UserTable from '../components/UserTable'
 import SearchBar from '../components/SearchBar'
 import Pagination from '../components/Pagination'
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 function ListPage() {
   const navigate = useNavigate()
   
@@ -23,7 +25,7 @@ function ListPage() {
       setError(null)
       
       try {
-        const response = await fetch(`http://localhost:5000/api/users?page=${currentPage}&limit=6`)
+        const response = await fetch(`${API_URL}/api/users?page=${currentPage}&limit=6`)
         const data = await response.json()
         
         if (!response.ok) {
@@ -58,7 +60,7 @@ function ListPage() {
       setError(null)
       
       try {
-        const response = await fetch(`http://localhost:5000/api/users/search?q=${encodeURIComponent(trimmedSearch)}`)
+        const response = await fetch(`${API_URL}/api/users/search?q=${encodeURIComponent(trimmedSearch)}`)
         const data = await response.json()
         
         if (!response.ok) {
@@ -103,7 +105,7 @@ function ListPage() {
     }
 
     try {
-      const response = await fetch(`http://localhost:5000/api/users/${userId}`, {
+      const response = await fetch(`${API_URL}/api/users/${userId}`, {
         method: 'DELETE'
       })
       
@@ -123,7 +125,7 @@ function ListPage() {
       } else {
         // Otherwise, refresh the current page
         try {
-          const fetchResponse = await fetch(`http://localhost:5000/api/users?page=${currentPage}&limit=6`)
+          const fetchResponse = await fetch(`${API_URL}/api/users?page=${currentPage}&limit=6`)
           const fetchData = await fetchResponse.json()
           
           if (!fetchResponse.ok) {
@@ -157,7 +159,7 @@ function ListPage() {
     setExporting(true)
     
     try {
-      const response = await fetch('http://localhost:5000/api/users/export')
+      const response = await fetch(`${API_URL}/api/users/export`)
       
       if (!response.ok) {
         const data = await response.json()
@@ -196,7 +198,7 @@ function ListPage() {
       const user = users.find(u => u._id === userId)
       if (!user) return
 
-      const response = await fetch(`http://localhost:5000/api/users/${userId}`, {
+      const response = await fetch(`${API_URL}/api/users/${userId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'

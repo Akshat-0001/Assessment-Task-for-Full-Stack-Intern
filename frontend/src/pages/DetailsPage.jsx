@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 function DetailsPage() {
   const navigate = useNavigate()
   const { id } = useParams()
@@ -15,7 +17,7 @@ function DetailsPage() {
       setError(null)
       
       try {
-        const response = await fetch(`http://localhost:5000/api/users/${id}`)
+        const response = await fetch(`${API_URL}/api/users/${id}`)
         const data = await response.json()
         
         if (!response.ok) {

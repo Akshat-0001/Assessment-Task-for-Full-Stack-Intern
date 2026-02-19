@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 function FormPage() {
   const navigate = useNavigate()
   const { id } = useParams()
@@ -26,7 +28,7 @@ function FormPage() {
         setLoading(true)
         
         try {
-          const response = await fetch(`http://localhost:5000/api/users/${id}`)
+          const response = await fetch(`${API_URL}/api/users/${id}`)
           const data = await response.json()
           
           if (!response.ok) {
@@ -109,7 +111,7 @@ function FormPage() {
     
     try {
       // Determine if creating or updating
-      const url = id ? `http://localhost:5000/api/users/${id}` : 'http://localhost:5000/api/users'
+      const url = id ? `${API_URL}/api/users/${id}` : `${API_URL}/api/users`
       const method = id ? 'PUT' : 'POST'
       
       const response = await fetch(url, {
